@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Materias</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #0d1b3f;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    header .inicio {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .materia {
+      background-color: #d8b800;
+      border-radius: 10px;
+      margin: 10px auto;
+      padding: 15px;
+      width: 80%;
+      cursor: pointer;
+    }
+
+    .materia h3 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tabla-container {
+      display: none;
+      margin-top: 10px;
+      background-color: white;
+      border-radius: 8px;
+      overflow-x: auto;
+      padding: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 5px;
+      text-align: center;
+    }
+
+    td[contenteditable="true"] {
+      background-color: #f9f9f9;
+    }
+
+    .buttons {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #0d1b3f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #2d3e66;
+    }
+
+    .add-materia {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 30px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .add-materia:hover {
+      background-color: #218838;
+    }
+
+    .edit-btn {
+      background-color: #ffc107;
+      color: black;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      margin-left: 10px;
+    }
+
+
+     .back-button {
+      background-color: #ffc107;
+      color: black;
+      padding: 0.7rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      display: inline-block;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="grupos-enfermeria.html" class="back-button">← Volver a Grupos</a>
+    <h1>Materias</h1>
+  </header>
+
+  <div class="content">
+    <h2>Lista de Materias</h2>
+    <button class="add-materia" onclick="agregarMateria()">+ Agregar Materia</button>
+    <div id="materias-container"></div>
+  </div>
+
+  <script>
+    let materiaCount = 0;
+
+    function agregarMateria(nombre = `Materia ${materiaCount + 1}`) {
+      materiaCount++;
+      const id = 'tabla' + materiaCount;
+      const container = document.getElementById('materias-container');
+
+      const materiaDiv = document.createElement('div');
+      materiaDiv.className = 'materia';
+      materiaDiv.innerHTML = `
+        <h3 onclick="toggleTabla('${id}')">${nombre} <span>&#9660;</span>
+          <button class="edit-btn" onclick="event.stopPropagation(); editarMateria(this)">Editar</button>
+        </h3>
+        <div class="tabla-container" id="${id}">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Matrícula</th>
+                <th>Nombre del Alumno</th>
+                <th>A/F</th>
+                <th>T1</th><th>T2</th><th>T3</th><th>T4</th>
+                <th>T5</th><th>T6</th><th>T7</th><th>T8</th>
+                <th>P1</th><th>P2</th><th>TF</th><th>CF</th>
+                <th>Firma</th><th>Obs</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filaAlumno(1)}
+              ${filaAlumno(2)}
+            </tbody>
+          </table>
+          <div class="buttons">
+            <button onclick="agregarFila('${id}')">+ Agregar Alumno</button>
+            <button onclick="guardarDatos('${id}')">Guardar</button>
+            <button onclick="descargarPDF('${id}', '${nombre}')">PDF</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(materiaDiv);
+    }
+
+    function filaAlumno(num) {
+      return `
+        <tr>
+          <td>${num}</td>
+          <td contenteditable="true">12345</td>
+          <td contenteditable="true">Alumno ${num}</td>
+          <td contenteditable="true"></td>
+          ${'<td contenteditable="true"></td>'.repeat(14)}
+          <td></td>
+          <td contenteditable="true"></td>
+        </tr>
+      `;
+    }
+
+    function toggleTabla(id) {
+      const tabla = document.getElementById(id);
+      tabla.style.display = tabla.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function editarMateria(button) {
+      const titulo = button.parentElement;
+      const nombreActual = titulo.childNodes[0].textContent.trim();
+      const nuevoNombre = prompt("Editar nombre de la materia:", nombreActual);
+      if (nuevoNombre) {
+        titulo.childNodes[0].textContent = nuevoNombre + " ";
+      }
+    }
+
+    function agregarFila(idTabla) {
+      const tabla = document.querySelector(`#${idTabla} tbody`);
+      const nuevaFila = document.createElement('tr');
+      const numero = tabla.rows.length + 1;
+      nuevaFila.innerHTML = filaAlumno(numero);
+      tabla.appendChild(nuevaFila);
+    }
+
+    function guardarDatos(idTabla) {
+      const tabla = document.querySelector(`#${idTabla} tbody`);
+      const datos = Array.from(tabla.rows).map(fila =>
+        Array.from(fila.cells).map(td => td.textContent)
+      );
+      localStorage.setItem(idTabla, JSON.stringify(datos));
+      alert("Guardado localmente.");
+    }
+
+    function descargarPDF(idTabla, nombreMateria) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "landscape" });
+
+      doc.text(`Lista de Evaluación - ${nombreMateria}`, 14, 20);
+
+      const filas = [];
+      const trs = document.querySelectorAll(`#${idTabla} tr`);
+      trs.forEach(tr => {
+        const row = [];
+        tr.querySelectorAll("th, td").forEach(cell => {
+          row.push(cell.textContent.trim());
+        });
+        filas.push(row);
+      });
+
+      doc.autoTable({
+        head: [filas[0]],
+        body: filas.slice(1),
+        startY: 30,
+        styles: { fontSize: 8 }
+      });
+
+      doc.save(`${nombreMateria}.pdf`);
+    }
+
+    // Carga una materia por defecto
+    window.onload = () => agregarMateria();
+  </script>
+</body>
+</html>

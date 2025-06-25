@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Temario - Psicología</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f4f8;
+      color: #333;
+      padding-bottom: 70px; /* para que no quede tapado el botón */
+    }
+    header {
+      background-color: #0d1b3f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #0d1b3f;
+      margin-bottom: 20px;
+    }
+    h3 {
+      color: #1a3c78;
+      margin-top: 30px;
+      border-left: 6px solid #d8b800;
+      padding-left: 10px;
+    }
+    ul {
+      padding-left: 25px;
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+    li {
+      list-style-type: square;
+    }
+
+    /* Estilos para el botón de regresar */
+    .btn-regresar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #0d1b3f;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+      z-index: 1000;
+    }
+    .btn-regresar:hover {
+      background-color: #1a3c78;
+    }
+  </style>
+</head>
+<body>
+  <header>Temario de Psicología</header>
+  <div class="container">
+    <h2>Plan de estudios por unidades temáticas</h2>
+
+    <h3>CUATRIMESTRE 1: Fundamentos de Psicología</h3>
+    <ul>
+      <li>Introducción a la psicología</li>
+      <li>Historia y escuelas psicológicas</li>
+      <li>Métodos de investigación en psicología</li>
+      <li>Bases biológicas del comportamiento</li>
+      <li>Percepción y atención</li>
+      <li>Memoria y aprendizaje</li>
+      <li>Motivación y emoción</li>
+      <li>Desarrollo humano</li>
+      <li>Ética profesional en psicología</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 2: Psicología del Desarrollo</h3>
+    <ul>
+      <li>Teorías del desarrollo</li>
+      <li>Desarrollo cognitivo infantil</li>
+      <li>Desarrollo socioemocional</li>
+      <li>Etapas de la vida: infancia y adolescencia</li>
+      <li>Desarrollo en la adultez y vejez</li>
+      <li>Factores que afectan el desarrollo</li>
+      <li>Evaluación del desarrollo</li>
+      <li>Intervenciones tempranas</li>
+      <li>Desarrollo moral y ético</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 3: Psicología Cognitiva</h3>
+    <ul>
+      <li>Procesos cognitivos básicos</li>
+      <li>Atención y percepción</li>
+      <li>Memoria y recuperación</li>
+      <li>Lenguaje y comunicación</li>
+      <li>Razonamiento y toma de decisiones</li>
+      <li>Resolución de problemas</li>
+      <li>Inteligencia y creatividad</li>
+      <li>Modelos cognitivos</li>
+      <li>Aplicaciones prácticas</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 4: Psicología Social</h3>
+    <ul>
+      <li>Introducción a la psicología social</li>
+      <li>Actitudes y persuasión</li>
+      <li>Conformidad y obediencia</li>
+      <li>Dinámica de grupos</li>
+      <li>Estereotipos y prejuicios</li>
+      <li>Comunicación interpersonal</li>
+      <li>Comportamiento prosocial</li>
+      <li>Conflicto y resolución</li>
+      <li>Influencia social</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 5: Psicopatología</h3>
+    <ul>
+      <li>Introducción a los trastornos mentales</li>
+      <li>Clasificación y diagnóstico</li>
+      <li>Trastornos de ansiedad</li>
+      <li>Trastornos del estado de ánimo</li>
+      <li>Trastornos psicóticos</li>
+      <li>Trastornos de la personalidad</li>
+      <li>Trastornos neurocognitivos</li>
+      <li>Factores etiológicos</li>
+      <li>Evaluación clínica</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 6: Psicología Clínica</h3>
+    <ul>
+      <li>Principios de la psicoterapia</li>
+      <li>Técnicas de evaluación clínica</li>
+      <li>Modelos terapéuticos</li>
+      <li>Entrevista clínica</li>
+      <li>Intervenciones psicológicas</li>
+      <li>Manejo de casos</li>
+      <li>Ética en la práctica clínica</li>
+      <li>Psicología de la salud</li>
+      <li>Psicoeducación</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 7: Psicología Educativa</h3>
+    <ul>
+      <li>Teorías del aprendizaje</li>
+      <li>Motivación y conducta en el aula</li>
+      <li>Dificultades de aprendizaje</li>
+      <li>Evaluación psicopedagógica</li>
+      <li>Intervenciones educativas</li>
+      <li>Diseño de programas educativos</li>
+      <li>Psicología del desarrollo en la educación</li>
+      <li>Inclusión y diversidad</li>
+      <li>Relación familia-escuela</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 8: Psicología Organizacional</h3>
+    <ul>
+      <li>Comportamiento organizacional</li>
+      <li>Liderazgo y motivación</li>
+      <li>Clima y cultura organizacional</li>
+      <li>Selección y capacitación de personal</li>
+      <li>Evaluación del desempeño</li>
+      <li>Salud ocupacional</li>
+      <li>Gestión del cambio</li>
+      <li>Comunicación interna</li>
+      <li>Trabajo en equipo</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 9: Métodos de Investigación en Psicología</h3>
+    <ul>
+      <li>Diseño de investigación</li>
+      <li>Métodos cuantitativos y cualitativos</li>
+      <li>Recolección de datos</li>
+      <li>Análisis estadístico básico</li>
+      <li>Redacción de informes</li>
+      <li>Ética en investigación</li>
+      <li>Uso de software especializado</li>
+      <li>Presentación de resultados</li>
+      <li>Proyectos de investigación</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 10: Prácticas Profesionales</h3>
+    <ul>
+      <li>Prácticas supervisadas en campo clínico</li>
+      <li>Evaluación de intervenciones</li>
+      <li>Trabajo interdisciplinario</li>
+      <li>Desarrollo de habilidades profesionales</li>
+      <li>Documentación y reporte clínico</li>
+      <li>Ética y responsabilidad profesional</li>
+      <li>Atención a la diversidad cultural</li>
+      <li>Capacitación continua</li>
+      <li>Reflexión sobre la práctica profesional</li>
+    </ul>
+
+  </div>
+
+  <button class="btn-regresar" onclick="history.back()">← Regresar</button>
+</body>
+</html>

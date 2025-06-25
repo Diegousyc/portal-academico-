@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vista de Pagos - Administrador</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #444;
+      color: white;
+    }
+    .btn-container {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .btn {
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #444;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .btn:hover {
+      background-color: #666;
+    }
+    .btn-delete {
+      background-color: #c0392b;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .btn-delete:hover {
+      background-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pagos Registrados</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Matrícula</th>
+        <th>Referencia</th>
+        <th>Monto</th>
+        <th>Notas</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="tablaPagos">
+      <!-- Los pagos se insertan aquí -->
+    </tbody>
+  </table>
+
+  <div class="btn-container">
+    <button class="btn" onclick="location.href='../admin-dashboard.html'">Regresar</button>
+  </div>
+
+  <script>
+    let pagos = JSON.parse(localStorage.getItem("pagos")) || [];
+    const tabla = document.getElementById("tablaPagos");
+
+    function renderPagos() {
+      tabla.innerHTML = ""; // Limpiar tabla
+      pagos.forEach((pago, index) => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td>${pago.nombre}</td>
+          <td>${pago.matricula}</td>
+          <td>${pago.referencia}</td>
+          <td>$${pago.monto}</td>
+          <td>${pago.notas}</td>
+          <td>${pago.fecha}</td>
+          <td><button class="btn-delete" onclick="eliminarPago(${index})">Eliminar</button></td>
+        `;
+        tabla.appendChild(fila);
+      });
+    }
+
+    function eliminarPago(index) {
+      const pago = pagos[index];
+      const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el pago de ${pago.nombre} con matrícula ${pago.matricula}?`);
+      if (confirmacion) {
+        pagos.splice(index, 1);
+        localStorage.setItem("pagos", JSON.stringify(pagos));
+        renderPagos();
+      }
+    }
+
+    function borrarTodos() {
+      if (confirm("¿Estás seguro de que deseas borrar todos los pagos?")) {
+        localStorage.removeItem("pagos");
+        pagos = [];
+        renderPagos();
+      }
+    }
+
+    // Inicializar tabla
+    renderPagos();
+  </script>
+</body>
+</html>

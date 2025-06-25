@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Temario - Enfermería</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f4f8;
+      color: #333;
+      padding-bottom: 70px; /* para que no quede tapado el botón */
+    }
+    header {
+      background-color: #0d1b3f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #0d1b3f;
+      margin-bottom: 20px;
+    }
+    h3 {
+      color: #1a3c78;
+      margin-top: 30px;
+      border-left: 6px solid #d8b800;
+      padding-left: 10px;
+    }
+    ul {
+      padding-left: 25px;
+      line-height: 1.7;
+      margin-top: 10px;
+    }
+    li {
+      list-style-type: square;
+    }
+
+    /* Estilos para el botón de regresar */
+    .btn-regresar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #0d1b3f;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+      z-index: 1000;
+    }
+    .btn-regresar:hover {
+      background-color: #1a3c78;
+    }
+  </style>
+</head>
+<body>
+  <header>Temario de Enfermería</header>
+  <div class="container">
+    <h2>Plan de estudios por unidades temáticas</h2>
+
+    <h3>CUATRIMESTRE 1: Fundamentos de Enfermería</h3>
+    <ul>
+      <li>Introducción a la profesión de enfermería</li>
+      <li>Historia y ética en enfermería</li>
+      <li>Comunicación y relación terapéutica</li>
+      <li>Anatomía y fisiología básica</li>
+      <li>Principios de higiene y asepsia</li>
+      <li>Rol del profesional de enfermería</li>
+      <li>Primeros auxilios y atención básica</li>
+      <li>Organización del sistema de salud</li>
+      <li>Bioseguridad</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 2: Enfermería Médico-Quirúrgica I</h3>
+    <ul>
+      <li>Conceptos básicos de patología</li>
+      <li>Cuidados pre y postoperatorios</li>
+      <li>Administración de medicamentos</li>
+      <li>Evaluación del paciente quirúrgico</li>
+      <li>Control del dolor y confort</li>
+      <li>Cuidados en pacientes con enfermedades crónicas</li>
+      <li>Vías de administración y técnicas de enfermería</li>
+      <li>Manejo de heridas y suturas</li>
+      <li>Monitoreo de signos vitales</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 3: Enfermería Pediátrica</h3>
+    <ul>
+      <li>Desarrollo infantil y crecimiento</li>
+      <li>Cuidados del recién nacido</li>
+      <li>Enfermedades comunes en la infancia</li>
+      <li>Vacunación y prevención</li>
+      <li>Nutrición pediátrica</li>
+      <li>Apoyo emocional a la familia</li>
+      <li>Cuidados en neonatología</li>
+      <li>Evaluación y técnicas pediátricas</li>
+      <li>Emergencias pediátricas</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 4: Enfermería Gineco-Obstétrica</h3>
+    <ul>
+      <li>Cuidados durante el embarazo</li>
+      <li>Atención al parto y puerperio</li>
+      <li>Salud reproductiva femenina</li>
+      <li>Planificación familiar</li>
+      <li>Detección temprana de complicaciones</li>
+      <li>Educación prenatal</li>
+      <li>Cuidados postnatales</li>
+      <li>Enfermedades ginecológicas comunes</li>
+      <li>Soporte emocional en maternidad</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 5: Enfermería Comunitaria</h3>
+    <ul>
+      <li>Salud pública y promoción de la salud</li>
+      <li>Atención primaria y prevención</li>
+      <li>Educación para la salud</li>
+      <li>Factores sociales y culturales en salud</li>
+      <li>Vacunación y campañas de salud</li>
+      <li>Investigación en enfermería comunitaria</li>
+      <li>Detección y control de enfermedades</li>
+      <li>Trabajo comunitario y liderazgo</li>
+      <li>Intervenciones en grupos vulnerables</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 6: Farmacología para Enfermería</h3>
+    <ul>
+      <li>Principios básicos de farmacología</li>
+      <li>Clasificación de medicamentos</li>
+      <li>Farmacocinética y farmacodinamia</li>
+      <li>Administración segura de fármacos</li>
+      <li>Efectos secundarios y reacciones adversas</li>
+      <li>Interacciones medicamentosas</li>
+      <li>Registro y control de medicación</li>
+      <li>Educación al paciente sobre medicamentos</li>
+      <li>Uso racional de medicamentos</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 7: Enfermería en Salud Mental</h3>
+    <ul>
+      <li>Fundamentos de salud mental</li>
+      <li>Trastornos mentales comunes</li>
+      <li>Técnicas de intervención y apoyo</li>
+      <li>Psicopatología para enfermería</li>
+      <li>Comunicación terapéutica</li>
+      <li>Manejo de crisis</li>
+      <li>Promoción de la salud mental</li>
+      <li>Cuidados en pacientes con adicciones</li>
+      <li>Trabajo interdisciplinario</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 8: Enfermería en Urgencias y Emergencias</h3>
+    <ul>
+      <li>Evaluación inicial del paciente crítico</li>
+      <li>RCP y soporte vital avanzado</li>
+      <li>Control de hemorragias y heridas</li>
+      <li>Manejo de trauma y accidentes</li>
+      <li>Estabilización y traslado</li>
+      <li>Uso de equipo de emergencia</li>
+      <li>Protocolos de atención urgente</li>
+      <li>Atención prehospitalaria</li>
+      <li>Comunicación en situaciones de emergencia</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 9: Ética y Legislación en Enfermería</h3>
+    <ul>
+      <li>Principios éticos en enfermería</li>
+      <li>Derechos y deberes del paciente</li>
+      <li>Confidencialidad y privacidad</li>
+      <li>Normatividad sanitaria</li>
+      <li>Responsabilidad profesional</li>
+      <li>Consentimiento informado</li>
+      <li>Ética en investigación</li>
+      <li>Relación con el equipo de salud</li>
+      <li>Regulación y acreditación profesional</li>
+    </ul>
+
+    <h3>CUATRIMESTRE 10: Prácticas Clínicas y Profesionales</h3>
+    <ul>
+      <li>Prácticas hospitalarias supervisadas</li>
+      <li>Atención integral al paciente</li>
+      <li>Registro y documentación clínica</li>
+      <li>Trabajo en equipo interdisciplinario</li>
+      <li>Gestión de cuidados de enfermería</li>
+      <li>Evaluación de competencias profesionales</li>
+      <li>Desarrollo profesional continuo</li>
+      <li>Investigación aplicada en enfermería</li>
+      <li>Reflexión y ética profesional</li>
+    </ul>
+
+  </div>
+
+  <button class="btn-regresar" onclick="history.back()">← Regresar</button>
+</body>
+</html>

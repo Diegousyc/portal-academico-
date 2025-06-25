@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calendario Escolarizado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e4f0f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      background-color: #0d1b3f;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .logo {
+      width: 80px;
+      margin-right: 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    header p {
+      margin: 5px 0 0;
+    }
+
+    .months {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .month {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .month h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #0d1b3f;
+    }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      text-align: center;
+    }
+
+    .day, .days div {
+      padding: 5px;
+      border-radius: 4px;
+    }
+
+    .empty {
+      visibility: hidden;
+    }
+
+    .highlight-yellow { background-color: #fcd34d; }
+    .highlight-black { background-color: #1f2937; color: white; }
+    .highlight-blue { background-color: #60a5fa; color: white; }
+    .highlight-purple { background-color: #a78bfa; color: white; }
+    .highlight-orange { background-color: #f97316; color: white; }
+    .highlight-pink { background-color: #fda4af; color: white; }
+
+
+
+    .legend {
+      background-color: #0d1b3f;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 40px;
+      box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .legend h3 {
+      margin-top: 0;
+      color: white;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    .btn-regresar {
+  display: block;
+  margin: 50px auto 0; /* margen superior y centrado */
+  background-color: #0d1b3f;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-regresar:hover {
+  background-color: #1f2f5b;
+  transform: scale(1.03);
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="/img/GE_USYC.png" alt="Logo" class="logo">
+      <div>
+        <h1>CALENDARIO ESCOLAR USYC</h1>
+        <p>CICLO MAYO–AGOSTO 2025<br><strong>LE-223 / LF-301</strong></p>
+      </div>
+    </header>
+
+    <div class="legend">
+      <h3>DATOS</h3>
+      <div class="legend-item"><div class="legend-color highlight-yellow"></div>Inicio / Fin de ciclo</div>
+      <div class="legend-item"><div class="legend-color highlight-black"></div>Días festivos / Suspensión de labores</div>
+      <div class="legend-item"><div class="legend-color highlight-pink"></div>Entrega de planeaciones / Avisos importantes</div>
+      <div class="legend-item"><div class="legend-color highlight-purple"></div>Exámenes parciales</div>
+      <div class="legend-item"><div class="legend-color highlight-blue"></div>Entrega de calificaciones / Revisión</div>
+      <div class="legend-item"><div class="legend-color highlight-orange"></div>Aplicación de extraordinarios</div>
+    </div>
+
+    <section class="months">
+      <!-- ABRIL -->
+      <div class="month">
+        <h2>Abril</h2>
+        <div class="days">
+          <div>L</div><div>M</div><div>MX</div><div>J</div><div>V</div><div>S</div><div>D</div>
+          <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div>
+          <div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div>
+          <div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div>
+          <div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div>
+          <div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day highlight-yellow">29</div><div class="day">30</div>
+        </div>
+      </div>
+
+      <!-- MAYO -->
+      <div class="month">
+        <h2>Mayo</h2>
+        <div class="days">
+          <div>L</div><div>M</div><div>MX</div><div>J</div><div>V</div><div>S</div><div>D</div>
+          <div class="day highlight-black">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day highlight-pink">7</div>
+          <div class="day highlight-pink">8</div><div class="day highlight-pink">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day highlight-black">14</div>
+          <div class="day highlight-black">15</div><div class="day highlight-black">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day highlight-black">21</div>
+          <div class="day">22</div><div class="day highlight-black">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div>
+          <div class="day">29</div><div class="day">30</div><div class="day">31</div>
+        </div>
+      </div>
+
+      <!-- JUNIO -->
+      <div class="month">
+        <h2>Junio</h2>
+        <div class="days">
+          <div>L</div><div>M</div><div>MX</div><div>J</div><div>V</div><div>S</div><div>D</div>
+          <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day highlight-purple">5</div><div class="day highlight-purple">6</div><div class="day highlight-purple">7</div>
+          <div class="day">8</div><div class="day highlight-blue">9</div><div class="day highlight-blue">10</div><div class="day highlight-blue">11</div><div class="day highlight-pink">12</div><div class="day highlight-orange">13</div><div class="day">14</div>
+          <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div>
+          <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div>
+          <div class="day">29</div><div class="day">30</div>
+        </div>
+      </div>
+
+      <!-- JULIO -->
+      <div class="month">
+        <h2>Julio</h2>
+        <div class="days">
+          <div>L</div><div>M</div><div>MX</div><div>J</div><div>V</div><div>S</div><div>D</div>
+          <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+          <div class="day">8</div><div class="day">9</div><div class="day highlight-pink">10</div><div class="day highlight-pink">11</div><div class="day highlight-pink">12</div><div class="day">13</div><div class="day">14</div>
+          <div class="day">15</div><div class="day highlight-purple">16</div><div class="day highlight-purple">17</div><div class="day highlight-purple">18</div><div class="day highlight-purple">19</div><div class="day highlight-blue">20</div><div class="day">21</div>
+          <div class="day highlight-blue">22</div><div class="day highlight-blue">23</div><div class="day highlight-blue">24</div><div class="day highlight-orange">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div>
+          <div class="day">29</div><div class="day">30</div><div class="day">31</div>
+        </div>
+      </div>
+
+      <!-- AGOSTO -->
+      <div class="month">
+        <h2>Agosto</h2>
+        <div class="days">
+          <div>L</div><div>M</div><div>MX</div><div>J</div><div>V</div><div>S</div><div>D</div>
+          <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+          <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div>
+          <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day highlight-purple">19</div><div class="day highlight-purple">20</div><div class="day highlight-purple">21</div>
+          <div class="day highlight-purple">22</div><div class="day highlight-blue">23</div><div class="day highlight-blue">24</div><div class="day highlight-black">25</div><div class="day highlight-black">26</div><div class="day highlight-black">27</div><div class="day highlight-black">28</div>
+          <div class="day highlight-black">29</div><div class="day highlight-black">30</div><div class="day highlight-black">31</div>
+        </div>
+      </div>
+
+      <!-- SEPTIEMBRE -->
+      <div class="month">
+        <h2>Septiembre</h2>
+        <div class="days">
+          <div>L</div><div>M</div><div>MX</div><div>J</div><div>V</div><div>S</div><div>D</div>
+          <div class="day highlight-yellow">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div>
+          <!-- Continúa si quieres mostrar más días -->
+        </div>
+      </div>
+    </section>
+    <a href="javascript:history.back()" class="btn-regresar">⟵ Regresar</a>
+  </div>
+</body>
+</html>

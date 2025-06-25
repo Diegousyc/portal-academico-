@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio - Escoge tu perfil</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('img/portada\ incio.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .top-image {
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .top-image img {
+      max-width: 200px;
+      height: auto;
+    }
+
+    .overlay {
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 1000px;
+      margin: 2% auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #24315e;
+      margin-bottom: 5rem;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 3.5rem;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 250px;
+      text-align: center;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .card-title {
+      padding: 1rem;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #24315e;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #24315e;
+      color: white;
+      font-size: 0.9rem;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    .footer img {
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Imagen centrada en la parte superior -->
+  <div class="top-image">
+    <img src="img/USYC barnard-04.png" alt="Logo USYC superior" />
+  </div>
+
+  <div class="overlay">
+    <h1>Bienvenido escoge tu perfil</h1>
+    <div class="cards">
+      <div class="card" onclick="location.href='login-alumno.html'">
+        <img src="img/alumno portal.jpg" alt="Alumno" />
+        <div class="card-title">Alumno</div>
+      </div>
+
+      <div class="card" onclick="location.href='login-maestro.html'">
+        <img src="img/maestra portal.jpg" alt="Docente" />
+        <div class="card-title">Docente</div>
+      </div>
+
+      <div class="card" onclick="location.href='login-admin.html'">
+        <img src="img/adminstrador portal.jpg" alt="Administrativo" />
+        <div class="card-title">Administrativo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <img src="img/GE_USYC.png" alt="Logo USYC" />
+  </div>
+</body>
+</html>

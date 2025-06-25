@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Alumno</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('img/login alumno fondo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 300px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+    }
+
+    .login-container img {
+      width: 150px;
+      border-radius: 20%;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 0.5rem 0 0.2rem;
+      color: white;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      background-color: #d4af00;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #000;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e0c200;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="img/GE_USYC.png" alt="Logo USYC" />
+    <h2>Alumno</h2>
+    <form id="loginForm">
+      <label for="user">Usuario</label>
+      <input type="text" id="user" name="user" required />
+
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" name="password" required />
+
+      <button type="submit">Iniciar</button>
+    </form>
+  </div>
+
+  <!-- 🔗 Importar usuarios desde archivo externo -->
+  <script src="js/usuarios.js"></script>
+
+  <!-- Lógica de validación -->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const user = document.getElementById("user").value;
+      const pass = document.getElementById("password").value;
+
+      const valido = usuarios.alumnos.some(u => u.usuario === user && u.contraseña === pass);
+
+      if (valido) {
+        alert("Inicio de sesión exitoso");
+        window.location.href = "alumno-dashboard.html";
+      } else {
+        alert("Credenciales incorrectas");
+      }
+    });
+  </script>
+</body>
+</html>

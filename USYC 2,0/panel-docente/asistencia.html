@@ -1,0 +1,147 @@
+<!-- archivo: registro.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Asistencia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      padding: 2rem;
+    }
+
+    .back-button {
+      background-color: #d4af00;
+      color: white;
+      padding: 0.8rem 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto 2rem auto;
+      text-align: center;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0d1a3c;
+    }
+
+    .form-container {
+      background-color: white;
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button.confirmar {
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button.confirmar:hover {
+      background-color: #218838;
+    }
+
+    .confirmation-message {
+      margin-top: 1rem;
+      color: #28a745;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-button" onclick="window.location.href='../maestro-dashboard.html'"> Regresar</button>
+
+  <h1>Registro de Asistencia</h1>
+
+  <div class="form-container">
+    <label for="nombre">Nombre del profesor:</label>
+    <input type="text" id="nombre" placeholder="Ej: Juan Pérez" />
+
+    <label for="horaEntrada">Hora de entrada:</label>
+    <input type="time" id="horaEntrada" />
+
+    <label for="horaSalida">Hora de salida:</label>
+    <input type="time" id="horaSalida" />
+
+    <button class="confirmar" onclick="confirmarAsistencia()">✅ Confirmar</button>
+
+    <div id="mensajeConfirmado" class="confirmation-message">
+      ¡Asistencia registrada correctamente!
+    </div>
+  </div>
+
+  <script>
+    function confirmarAsistencia() {
+      const nombre = document.getElementById("nombre").value;
+      const entrada = document.getElementById("horaEntrada").value;
+      const salida = document.getElementById("horaSalida").value;
+
+      if (!nombre || !entrada || !salida) {
+        alert("Por favor, completa todos los campos.");
+        return;
+      }
+
+      const nuevaAsistencia = {
+        nombre,
+        entrada,
+        salida,
+        fecha: new Date().toLocaleDateString()
+      };
+
+      // Obtener asistencias anteriores
+      const asistencias = JSON.parse(localStorage.getItem("asistencias")) || [];
+
+      // Agregar la nueva
+      asistencias.push(nuevaAsistencia);
+
+      // Guardar en localStorage
+      localStorage.setItem("asistencias", JSON.stringify(asistencias));
+
+      // Mostrar mensaje
+      document.getElementById("mensajeConfirmado").style.display = "block";
+
+      // Limpiar campos
+      document.getElementById("nombre").value = "";
+      document.getElementById("horaEntrada").value = "";
+      document.getElementById("horaSalida").value = "";
+
+      setTimeout(() => {
+        document.getElementById("mensajeConfirmado").style.display = "none";
+      }, 3000);
+    }
+  </script>
+  
+</body>
+</html>

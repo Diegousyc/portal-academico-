@@ -1,0 +1,121 @@
+<!-- archivo: admin.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Asistencia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0d1a3c;
+      margin-bottom: 2rem;
+    }
+
+    .asistencia-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      padding: 25px 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+      font-size: 16px;
+    }
+
+    thead tr {
+      background: #34495e;
+      color: #ecf0f1;
+    }
+
+    thead th, tbody td {
+      padding: 15px 20px;
+      text-align: left;
+    }
+
+    tbody tr {
+      background: #ecf0f1;
+      border-radius: 8px;
+    }
+
+    .status {
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 20px;
+      color: white;
+      display: inline-block;
+    }
+
+    .status.presente {
+      background-color: #27ae60;
+    }
+
+    .status.salida {
+      background-color: #c0392b;
+    }
+
+    .volver {
+      margin-top: 2rem;
+      display: block;
+      text-align: center;
+    }
+
+    .volver a {
+      color: #d4af00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Panel de Asistencia</h1>
+
+  <div class="asistencia-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Hora de Entrada</th>
+          <th>Hora de Salida</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="tablaAsistencia">
+        <!-- Se llena con JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="volver">
+    <a href="/admin-dashboard.html">← Volver al Dashboard</a>
+  </div>
+
+  <script>
+    const tabla = document.getElementById("tablaAsistencia");
+    const asistencias = JSON.parse(localStorage.getItem("asistencias")) || [];
+
+    asistencias.forEach(asistencia => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${asistencia.nombre}</td>
+        <td>${asistencia.entrada}</td>
+        <td>${asistencia.salida}</td>
+        <td>${asistencia.fecha}</td>
+      `;
+      tabla.appendChild(fila);
+    });
+  </script>
+</body>
+</html>

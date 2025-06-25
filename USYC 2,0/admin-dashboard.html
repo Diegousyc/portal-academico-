@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Administrativo - USYC</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #0e1c3f;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .menu-icon {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+    }
+
+    .dashboard {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      width: 250px;
+      background-color: #f5f5f5;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .card-title {
+      background-color: #d4af00;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .logout-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+    }
+
+    .logout-button {
+      background-color: #d4af00;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #b89c00;
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: #0e1c3f;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    footer img {
+      width: 150px;
+      height: auto;
+    }
+
+    /* Panel de notificaciones */
+    .notification-panel {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: 300px;
+      background-color: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      display: none;
+      z-index: 1000;
+    }
+
+    .notification-panel h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .notification-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .notification-panel li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    PANEL ADMINISTRATIVO
+    <div class="menu-icon" onclick="toggleNotifications()">☰</div>
+  </header>
+
+  <!-- Panel de notificaciones -->
+  <div id="notificationPanel" class="notification-panel">
+    <h3>Notificaciones</h3>
+    <ul>
+      <li>Nueva calificación disponible.</li>
+      <li>Temario actualizado.</li>
+      <li>Pago confirmado.</li>
+    </ul>
+  </div>
+
+  <div class="dashboard">
+    <div class="card" onclick="location.href='panel-admin/calificaciones-admin.html'">
+      <img src="img/calificaciones.webp" alt="Calificaciones">
+      <div class="card-title">Calificaciones</div>
+    </div>
+
+    <div class="card" onclick="location.href='panel-admin/temarios-admin.html'">
+      <img src="img/temario.jpg" alt="Temarios">
+      <div class="card-title">Temarios</div>
+    </div>
+
+    <div class="card" onclick="location.href='panel-admin/pagos-admin.html'">
+      <img src="img/pagod.png" alt="Pagos">
+      <div class="card-title">Pagos</div>
+    </div>
+
+    <!-- Nuevas tarjetas agregadas -->
+    <div class="card" onclick="location.href='panel-admin/asistencia-admin.html'">
+      <img src="img/asistencia.webp" alt="Asistencia">
+      <div class="card-title">Asistencia</div>
+    </div>
+
+    <div class="card" onclick="location.href='calendario-escolar.html'">
+      <img src="img/calendario.png" alt="Calendario Escolar">
+      <div class="card-title">Calendario Escolar</div>
+    </div>
+  </div>
+
+  <div class="logout-container">
+    <button class="logout-button" onclick="logout()">Salir</button>
+  </div>
+
+  <footer>
+    <img src="img/GE_USYC.png" alt="Footer logo">
+  </footer>
+
+  <script>
+    function logout() {
+      window.location.href = "incio.html";
+    }
+
+    function toggleNotifications() {
+      const panel = document.getElementById("notificationPanel");
+      panel.style.display = panel.style.display === "none" || panel.style.display === "" ? "block" : "none";
+    }
+  </script>
+
+</body>
+</html>

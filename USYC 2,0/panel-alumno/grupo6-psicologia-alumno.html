@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Boleta de Calificaciones</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header img {
+      max-width: 100px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      color: #0d1b3f;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      color: #b89c00;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .btn, select {
+      margin: 15px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+
+    .btn {
+      background-color: #0d1b3f;
+      color: white;
+      cursor: pointer;
+    }
+
+    .firma {
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      text-align: center;
+      color: #555;
+    }
+
+    select {
+      background: #e0e0e0;
+    }
+
+    .btn-regresar {
+      display: inline-block;
+      background-color: #888;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-left: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-regresar:hover {
+      background-color: #555;
+    }
+
+    .logo-usyc {
+      width: 200px;
+      height: auto;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <img src="/img/GE_USYC-02.png" alt="Logo USYC" class="logo-usyc">  
+    <h2>Reporte de Calificaciones</h2>
+    <p><strong>Nombre del alumno:</strong> LÓPEZ CAREAGA EMMANUEL</p>
+    <p><strong>Matrícula:</strong> LOEC031119HMCRMA2</p>
+    <p><strong>Licenciatura en Pedagogía – Turno Matutino</strong></p>
+    <label for="cuatrimestre">Seleccionar cuatrimestre:</label>
+    <select id="cuatrimestre" onchange="cambiarCuatrimestre()">
+      <option value="4">4° Cuatrimestre</option>
+      <option value="3">3° Cuatrimestre</option>
+      <option value="2">2° Cuatrimestre</option>
+    </select>
+  </div>
+
+  <div id="boleta">
+    <h3 id="titulo-cuatrimestre">4° Cuatrimestre</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>CLAVE</th>
+          <th>MATERIA</th>
+          <th>CALIFICACIÓN</th>
+          <th>LETRA</th>
+          <th>TIPO DE EXAMEN</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-materias">
+        <!-- Materias se insertan aquí -->
+      </tbody>
+    </table>
+
+    <div class="firma">
+      <div>
+        <p>__________________________</p>
+        <p>Director General</p>
+        <p>Mtro. Jacob Levy Montalvo Zavaleta</p>
+      </div>
+      <div>
+        <p>__________________________</p>
+        <p>Coordinadora Académica</p>
+        <p>Mtra. Laura Martínez Rivera</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      Este documento se expide únicamente con carácter informativo a los ocho días del mes de enero del año 2025.<br>
+      San Sebastián, Metepec
+    </div>
+  </div>
+
+  <button class="btn" onclick="descargarPDF()">Descargar PDF</button>
+  <a href="/alumno-dashboard.html" class="btn-regresar">Regresar</a>
+</div>
+
+<script>
+  const datosCuatrimestres = {
+    "4": [
+      ["1", "EVALUACIÓN EDUCATIVA", "10.0", "DIEZ", "Ordinario"],
+      ["2", "TECNOLOGÍAS APLICADAS A LA EDUCACIÓN", "9.0", "NUEVE", "Ordinario"],
+      ["3", "ORIENTACIÓN EDUCATIVA", "9.0", "NUEVE", "Ordinario"],
+      ["4", "PLANEACIÓN EDUCATIVA", "9.0", "NUEVE", "Ordinario"],
+      ["5", "PSICOLOGÍA DEL APRENDIZAJE", "9.5", "NUEVE PUNTO CINCO", "Ordinario"],
+      ["6", "DIDÁCTICA GENERAL", "9.0", "NUEVE", "Ordinario"]
+    ],
+    "3": [
+      ["1", "PSICOLOGÍA SOCIAL", "8.5", "OCHO PUNTO CINCO", "Ordinario"],
+      ["2", "DESARROLLO HUMANO", "9.0", "NUEVE", "Ordinario"],
+      ["3", "FUNDAMENTOS DE LA EDUCACIÓN", "8.5", "OCHO PUNTO CINCO", "Ordinario"]
+    ],
+    "2": [
+      ["1", "TEORÍAS DEL APRENDIZAJE", "9.5", "NUEVE PUNTO CINCO", "Ordinario"],
+      ["2", "PSICOLOGÍA INFANTIL", "9.0", "NUEVE", "Ordinario"]
+    ]
+  };
+
+  function cambiarCuatrimestre() {
+    const cuatri = document.getElementById('cuatrimestre').value;
+    const tabla = document.getElementById('tabla-materias');
+    const titulo = document.getElementById('titulo-cuatrimestre');
+    tabla.innerHTML = "";
+    titulo.textContent = cuatri + "° Cuatrimestre";
+
+    datosCuatrimestres[cuatri].forEach((fila) => {
+      const row = document.createElement('tr');
+      fila.forEach((col) => {
+        const cell = document.createElement('td');
+        cell.textContent = col;
+        row.appendChild(cell);
+      });
+      tabla.appendChild(row);
+    });
+  }
+
+  function descargarPDF() {
+    const cuatri = document.getElementById('cuatrimestre').value;
+    const element = document.getElementById('boleta');
+    const opt = {
+      margin: 0.5,
+      filename: `boleta_pedagogia_cuatrimestre_${cuatri}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+  }
+
+  // Cargar materias del cuatrimestre inicial
+  cambiarCuatrimestre();
+</script>
+
+</body>
+</html>

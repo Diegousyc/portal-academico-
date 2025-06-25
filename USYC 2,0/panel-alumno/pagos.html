@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Sistema de Pagos - Escuela Privada</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  #mainContainer {
+    background-color: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  h1 {
+    color: #0d1b3f;
+    margin-bottom: 20px;
+  }
+  form {
+    text-align: left;
+  }
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #0d1b3f;
+  }
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  input[type="month"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1em;
+  }
+  textarea {
+    resize: vertical;
+  }
+  button {
+    margin-top: 25px;
+    background-color: #0d1b3f;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover {
+    background-color: #1a3c78;
+  }
+  .message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  .error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  .hidden {
+    display: none;
+  }
+  .info-box {
+    background-color: #e9f0ff;
+    border: 1px solid #8ab4f8;
+    padding: 12px 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    color: #0d1b3f;
+    line-height: 1.4;
+  }
+  /* Contenedor input tarjeta con logo */
+  .card-input-container {
+    position: relative;
+    width: 100%;
+  }
+  #cardNumber {
+    padding-right: 50px;
+    font-size: 1em;
+  }
+  #cardLogo {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 28px;
+    width: auto;
+    pointer-events: none;
+    user-select: none;
+  }
+  /* Vista previa comprobante */
+  #previewContainer {
+    max-width: 500px;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+    font-size: 0.95em;
+    color: #0d1b3f;
+    display: none;
+  }
+  #previewContainer h2 {
+    margin-top: 0;
+  }
+  #downloadPdfBtn {
+    background-color: #0d1b3f;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  #downloadPdfBtn:hover {
+    background-color: #1a3c78;
+  }
+</style>
+</head>
+<body>
+
+<div id="mainContainer">
+  <h1>Sistema de Pagos - USYC</h1>
+
+  <form id="paymentForm" novalidate>
+    <label for="studentName">Nombre del Estudiante:</label>
+    <input type="text" id="studentName" name="studentName" required />
+
+    <label for="studentID">Matrícula / ID:</label>
+    <input type="text" id="studentID" name="studentID" required />
+
+    <label for="paymentType">Tipo de Pago:</label>
+    <select id="paymentType" name="paymentType" required>
+      <option value="" disabled selected>Selecciona un tipo de pago</option>
+      <option value="reinscripcion">Reinscripción</option>
+      <option value="colegiatura">Colegiatura</option>
+      <option value="materiales">Materiales</option>
+      <option value="actividades">Actividades Extracurriculares</option>
+      <option value="otros">Otros</option>
+    </select>
+
+    <label for="amount">Monto a Pagar (MXN):</label>
+    <input type="number" id="amount" name="amount" min="1" step="0.01" required />
+
+    <label for="paymentMethod">Método de Pago:</label>
+    <select id="paymentMethod" name="paymentMethod" required>
+      <option value="" disabled selected>Selecciona método de pago</option>
+      <option value="transferencia">Transferencia Bancaria</option>
+      <option value="efectivo">Efectivo</option>
+      <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+    </select>
+
+    <div id="transferInfo" class="hidden">
+      <div class="info-box" aria-live="polite">
+        <strong>Datos para transferencia bancaria:</strong><br>
+        Banco: Banco Ejemplo S.A.<br>
+        Cuenta: 1234 5678 9012 3456<br>
+        CLABE: 012 345 678 901 234 567<br>
+        A nombre de: GRUPO EDUCATIVO USYC
+      </div>
+
+      <label for="transferReference">Número de Referencia de Transferencia:</label>
+      <input type="text" id="transferReference" name="transferReference" placeholder="Ejemplo: 1234567890" />
+
+      <label for="transferDate">Fecha de Transferencia:</label>
+      <input type="date" id="transferDate" name="transferDate" />
+    </div>
+
+    <div id="cardInfo" class="hidden">
+      <label for="cardNumber">Número de Tarjeta:</label>
+      <div class="card-input-container">
+        <input type="text" id="cardNumber" name="cardNumber" placeholder="Ejemplo: 4111 1111 1111 1111" maxlength="19" inputmode="numeric" autocomplete="cc-number" />
+        <img id="cardLogo" src="" alt="" />
+      </div>
+
+      <label for="cardName">Nombre en la Tarjeta:</label>
+      <input type="text" id="cardName" name="cardName" placeholder="Como aparece en la tarjeta" autocomplete="cc-name" />
+
+      <label for="cardExpiry">Fecha de Expiración:</label>
+      <input type="month" id="cardExpiry" name="cardExpiry" min="2023-01" autocomplete="cc-exp" />
+
+      <label for="cardCVV">CVV:</label>
+      <input type="text" id="cardCVV" name="cardCVV" maxlength="4" inputmode="numeric" placeholder="3 o 4 dígitos" autocomplete="cc-csc" />
+
+      <div id="cashInfo" class="hidden">
+        <label for="cashReference">Referencia del Pago en Efectivo:</label>
+        <input type="text" id="cashReference" name="cashReference" placeholder="Ejemplo: Recibo #123 o similar" />
+      </div>
+
+    </div>
+
+    <label for="notes">Notas / Comentarios (opcional):</label>
+    <textarea id="notes" name="notes" rows="3" placeholder="Detalles adicionales..."></textarea>
+
+    <button type="submit">Registrar Pago</button>
+  </form>
+
+  <a href="/alumno-dashboard.html" class="btn-regresar">Regresar</a>
+
+  <div id="message" class="message" style="display:none;"></div>
+</div>
+
+<div id="previewContainer">
+  <h2>Vista Previa del Comprobante</h2>
+  <div id="previewContent"></div>
+  <button id="downloadPdfBtn">Descargar PDF</button>
+</div>
+
+<!-- jsPDF librería para PDF (CDN) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  const paymentMethod = document.getElementById('paymentMethod');
+  const transferInfo = document.getElementById('transferInfo');
+  const cardInfo = document.getElementById('cardInfo');
+  const paymentForm = document.getElementById('paymentForm');
+  const messageDiv = document.getElementById('message');
+  const cardNumberInput = document.getElementById('cardNumber');
+  const cardLogo = document.getElementById('cardLogo');
+
+  const previewContainer = document.getElementById('previewContainer');
+  const previewContent = document.getElementById('previewContent');
+  const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+
+  let lastPaymentData = null; // para guardar datos y usarlos al descargar PDF
+
+  function resetPaymentFields() {
+    transferInfo.classList.add('hidden');
+    cardInfo.classList.add('hidden');
+
+    document.getElementById('transferReference').required = false;
+    document.getElementById('transferDate').required = false;
+
+    document.getElementById('cardNumber').required = false;
+    document.getElementById('cardName').required = false;
+    document.getElementById('cardExpiry').required = false;
+    document.getElementById('cardCVV').required = false;
+
+    cardLogo.src = '';
+    cardLogo.alt = '';
+  }
+
+  paymentMethod.addEventListener('change', () => {
+    resetPaymentFields();
+    previewContainer.style.display = 'none'; // Ocultar vista previa si cambia método
+
+    if(paymentMethod.value === 'transferencia') {
+      transferInfo.classList.remove('hidden');
+      document.getElementById('transferReference').required = true;
+      document.getElementById('transferDate').required = true;
+    }
+    else if(paymentMethod.value === 'tarjeta') {
+      cardInfo.classList.remove('hidden');
+      document.getElementById('cardNumber').required = true;
+      document.getElementById('cardName').required = true;
+      document.getElementById('cardExpiry').required = true;
+      document.getElementById('cardCVV').required = true;
+    }
+  });
+
+  // Detectar tipo de tarjeta y mostrar logo
+  cardNumberInput.addEventListener('input', () => {
+    const value = cardNumberInput.value.replace(/\s+/g, '');
+
+    if(/^4/.test(value)) {
+      cardLogo.src = 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg';
+      cardLogo.alt = 'Visa';
+    } else if(/^5[1-5]/.test(value)) {
+      cardLogo.src = 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg';
+      cardLogo.alt = 'MasterCard';
+    } else if(/^3[47]/.test(value)) {
+      cardLogo.src = 'https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg';
+      cardLogo.alt = 'American Express';
+    } else if(/^6(?:011|5)/.test(value)) {
+      cardLogo.src = 'https://upload.wikimedia.org/wikipedia/commons/4/41/Discover_Card_logo.svg';
+      cardLogo.alt = 'Discover';
+    } else {
+      cardLogo.src = '';
+      cardLogo.alt = '';
+    }
+  });
+
+  function showMessage(msg, type){
+    messageDiv.style.display = 'block';
+    messageDiv.innerHTML = msg;
+    messageDiv.className = 'message ' + type;
+    setTimeout(() => {
+      messageDiv.style.display = 'none';
+    }, 8000);
+  }
+
+  paymentForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const studentName = document.getElementById('studentName').value.trim();
+    const studentID = document.getElementById('studentID').value.trim();
+    const paymentTypeVal = document.getElementById('paymentType').value;
+    const amountVal = parseFloat(document.getElementById('amount').value);
+    const paymentMethodVal = paymentMethod.value;
+
+    if(!studentName || !studentID || !paymentTypeVal || !amountVal || !paymentMethodVal) {
+      showMessage('Por favor completa todos los campos obligatorios.', 'error');
+      previewContainer.style.display = 'none';
+      return;
+    }
+
+    if(paymentMethodVal === 'transferencia'){
+      const transferRef = document.getElementById('transferReference').value.trim();
+      const transferDate = document.getElementById('transferDate').value;
+      if(!transferRef || !transferDate){
+        showMessage('Por favor proporciona los datos de la transferencia.', 'error');
+        previewContainer.style.display = 'none';
+        return;
+      }
+    }
+    else if(paymentMethodVal === 'tarjeta'){
+      const cardNumber = document.getElementById('cardNumber').value.trim();
+      const cardName = document.getElementById('cardName').value.trim();
+      const cardExpiry = document.getElementById('cardExpiry').value;
+      const cardCVV = document.getElementById('cardCVV').value.trim();
+
+      if(!cardNumber || !cardName || !cardExpiry || !cardCVV) {
+        showMessage('Por favor completa todos los datos de la tarjeta.', 'error');
+        previewContainer.style.display = 'none';
+        return;
+      }
+    }
+
+    // Guardar datos para PDF
+    lastPaymentData = {
+      studentName,
+      studentID,
+      paymentType: paymentTypeVal,
+      amount: amountVal.toFixed(2),
+      paymentMethod: paymentMethodVal,
+      transferReference: document.getElementById('transferReference').value.trim(),
+      transferDate: document.getElementById('transferDate').value,
+      cardNumber: document.getElementById('cardNumber').value.trim(),
+      cardName: document.getElementById('cardName').value.trim(),
+      cardExpiry: document.getElementById('cardExpiry').value,
+      cardCVV: document.getElementById('cardCVV').value.trim(),
+      notes: document.getElementById('notes').value.trim(),
+      paymentDate: new Date().toLocaleString('es-MX')
+    };
+
+
+    
+
+    mostrarVistaPrevia(lastPaymentData);
+    showMessage('Datos validados. Vista previa del comprobante abajo.', 'success');
+
+    // No resetear form todavía, el usuario puede descargar PDF o cambiar algo
+  });
+
+  function mostrarVistaPrevia(data){
+    let html = `
+      <p><strong>Nombre del Estudiante:</strong> ${data.studentName}</p>
+      <p><strong>Matrícula / ID:</strong> ${data.studentID}</p>
+      <p><strong>Tipo de Pago:</strong> ${capitalizeFirstLetter(data.paymentType)}</p>
+      <p><strong>Monto:</strong> $${data.amount} MXN</p>
+      <p><strong>Método de Pago:</strong> ${formatPaymentMethod(data.paymentMethod)}</p>
+    `;
+
+    if(data.paymentMethod === 'transferencia'){
+      html += `
+        <p><strong>Referencia Transferencia:</strong> ${data.transferReference}</p>
+        <p><strong>Fecha Transferencia:</strong> ${data.transferDate}</p>
+      `;
+    } else if(data.paymentMethod === 'tarjeta'){
+      html += `
+        <p><strong>Tarjeta:</strong> **** **** **** ${data.cardNumber.slice(-4)}</p>
+        <p><strong>Nombre en Tarjeta:</strong> ${data.cardName}</p>
+        <p><strong>Expiración:</strong> ${data.cardExpiry}</p>
+      `;
+    }
+
+    if(data.notes){
+      html += `<p><strong>Notas:</strong> ${data.notes}</p>`;
+    }
+
+    html += `<p><strong>Fecha de Registro:</strong> ${data.paymentDate}</p>`;
+
+    previewContent.innerHTML = html;
+    previewContainer.style.display = 'block';
+    window.scrollTo({ top: previewContainer.offsetTop, behavior: 'smooth' });
+  }
+
+  function capitalizeFirstLetter(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  function formatPaymentMethod(method){
+    if(method === 'transferencia') return 'Transferencia Bancaria';
+    if(method === 'efectivo') return 'Efectivo';
+    if(method === 'tarjeta') return 'Tarjeta Crédito/Débito';
+    return method;
+  }
+
+  downloadPdfBtn.addEventListener('click', () => {
+    if(!lastPaymentData){
+      showMessage('No hay datos para generar el PDF.', 'error');
+      return;
+    }
+    generarPDF(lastPaymentData);
+  });
+
+ function generarPDF(data){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text('Comprobante de Pago - Escuela Privada', 20, 20);
+
+  doc.setFontSize(12);
+  doc.text(`Nombre del Estudiante: ${data.studentName}`, 20, 35);
+  doc.text(`Matrícula / ID: ${data.studentID}`, 20, 45);
+  doc.text(`Tipo de Pago: ${capitalizeFirstLetter(data.paymentType)}`, 20, 55);
+  doc.text(`Monto: $${data.amount} MXN`, 20, 65);
+  doc.text(`Método de Pago: ${formatPaymentMethod(data.paymentMethod)}`, 20, 75);
+
+  if(data.paymentMethod === 'transferencia'){
+    doc.text(`Referencia Transferencia: ${data.transferReference}`, 20, 85);
+    doc.text(`Fecha Transferencia: ${data.transferDate}`, 20, 95);
+  } else if(data.paymentMethod === 'tarjeta'){
+    doc.text(`Tarjeta: **** **** **** ${data.cardNumber.slice(-4)}`, 20, 85);
+    doc.text(`Nombre en Tarjeta: ${data.cardName}`, 20, 95);
+    doc.text(`Expiración: ${data.cardExpiry}`, 20, 105);
+  }
+
+  if(data.notes){
+    doc.text('Notas:', 20, 115);
+    doc.text(data.notes, 20, 123);
+  }
+
+  doc.text(`Fecha de Registro: ${data.paymentDate}`, 20, 135);
+
+  doc.save(`comprobante_pago_${data.studentID}.pdf`);
+
+ // === Guardar el pago en localStorage ===
+const pago = {
+  nombre: data.studentName,
+  matricula: data.studentID,
+  referencia: data.paymentMethod === 'transferencia' ? data.transferReference : (data.cardNumber ? `**** **** **** ${data.cardNumber.slice(-4)}` : ''),
+  monto: data.amount,
+  notas: data.notes || '',
+  fecha: data.paymentDate
+};
+
+let pagos = JSON.parse(localStorage.getItem("pagos")) || [];
+pagos.push(pago);
+localStorage.setItem("pagos", JSON.stringify(pagos));
+
+}
+
+
+
+</script>
+
+</body>
+</html>
